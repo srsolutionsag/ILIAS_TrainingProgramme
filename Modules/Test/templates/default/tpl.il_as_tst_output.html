@@ -1,0 +1,225 @@
+<!-- BEGIN kiosk_message -->{MESSAGE}<!-- END kiosk_message -->
+<!-- BEGIN kiosk_options -->
+{KIOSK_HEAD}
+<!-- END kiosk_options -->
+<div id="tst_output">
+<form role="form" id="taForm" class="form-horizontal preventDoubleSubmission" name="test_output" method="post" style="clear: both;" {ENCTYPE} action="{FORMACTION}"<!-- BEGIN onsubmit --> onsubmit="{ON_SUBMIT}"<!-- END onsubmit -->>
+<div id="tst_left">{LIST_OF_QUESTIONS}</div>
+<div id="tst_right">
+<!-- BEGIN enableprocessingtime -->
+<div class="ilTstWorkingFormBlock_WorkingTime">
+	<span class="ilTstWorkingFormInfo_UserWorkingTime">{USER_WORKING_TIME}</span>
+	<span id="timeleft" class="ilTstWorkingFormInfo_ProcessTimeLeft">{USER_REMAINING_TIME}</span>
+</div>
+<!-- END enableprocessingtime -->
+<input type="hidden" name="formtimestamp" value="{FORM_TIMESTAMP}" />
+<table class="fullwidth_invisible">
+		<tr>
+			<td>
+<!-- BEGIN view_sidelist -->
+	<input type="image" name="cmd[togglesidelist][list]" src="{IMAGE_SIDELIST}" title="{TEXT_SIDELIST}" />
+<!-- END view_sidelist -->
+<!-- BEGIN question_status -->
+<!-- BEGIN ismarked -->
+	<input type="image" name="cmd[{CMD_MARKED}][mark]" src="{IMAGE_MARKED}" class="ilTstMarkQuestionButton" title="{TEXT_MARKED}" />
+<!-- END ismarked -->
+<!-- BEGIN isnotmarked -->
+	<input type="image" name="cmd[{CMD_UNMARKED}][mark]" src="{IMAGE_UNMARKED}" class="ilTstMarkQuestionButton" title="{TEXT_UNMARKED}" />
+<!-- END isnotmarked -->
+<!-- END question_status -->
+			</td>
+		</tr>
+</table>
+<table class="fullwidth">
+	<tr>
+	<td align="left" width="33%" class="submit">
+<!-- BEGIN prev -->
+		<input type="submit" class="btn btn-default" name="cmd[{CMD_PREV}]" value="{BTN_PREV}" id="prevbutton" />
+<!-- END prev -->
+	</td>
+	<td align="center" width="1" class="submit">
+		<!-- BEGIN char_selector -->
+		<input type="image" src="{CHAR_SELECTOR_IMAGE}" class="btn btn-default ilCharSelectorToggle" title="{CHAR_SELECTOR_TEXT}" />
+		{CHAR_SELECTOR_TEMPLATE}
+		<!-- END char_selector -->
+<!-- BEGIN cancel_test -->
+	<a href="{HREF_CANCELTEXT}" class="btn btn-default">{TEXT_CANCELTEST}</a>
+<!-- END cancel_test -->
+<!-- BEGIN summary -->
+		<input type="submit" class="btn btn-default" name="cmd[{CMD_SUMMARY}]" value="{BTN_SUMMARY}" id="summarybutton" />
+<!-- END summary -->
+	</td>
+	<td align="right" width="33%" class="submit">
+<!-- BEGIN postpone -->
+	<input type="submit" class="btn btn-default" name="cmd[{CMD_POSTPONE}]" value="{BTN_POSTPONE}" id="postponebutton" />
+	&nbsp;&nbsp;
+<!-- END postpone -->
+<!-- BEGIN next -->{BTN_NEXT}<!-- END next -->
+	</td>
+	</tr>
+</table>
+<!-- BEGIN closeform --></form><!-- END closeform -->
+<table class="fullwidth">
+	<tr class="std">
+		<td class="ilc_Page">
+			<div class="ilc_Page" id="ilc_Page">
+				<div id="javascript_switch" style="z-index: 10; float: right; display: none;"><a href="{JAVASCRIPT_URL}">{JAVASCRIPT_TITLE}</a></div>
+				{QUESTION_OUTPUT}
+            </div>
+			<!-- BEGIN question_related_navigation -->
+			<div class="ilAssQuestionRelatedNavigationContainer">
+				<!-- BEGIN direct_feedback -->
+					<input type="submit" class="btn btn-default" name="cmd[{CMD_SHOW_INSTANT_RESPONSE}]" id="directfeedback" value="{TEXT_SHOW_INSTANT_RESPONSE}" />
+				<!-- END direct_feedback -->
+				<!-- BEGIN button_request_next_question_hint -->
+					<input type="submit" class="btn btn-default" name="cmd[{CMD_REQUEST_NEXT_QUESTION_HINT}]" id="requestNextQuestionHint" value="{TEXT_REQUEST_NEXT_QUESTION_HINT}" />
+				<!-- END button_request_next_question_hint -->
+				<!-- BEGIN button_show_requested_question_hints -->
+					<input type="submit" class="btn btn-default" name="cmd[{CMD_SHOW_REQUESTED_QUESTION_HINTS}]" id="showRequestedQuestionHints" value="{TEXT_SHOW_REQUESTED_QUESTION_HINTS}" />
+				<!-- END button_show_requested_question_hints -->
+			</div>
+			<!-- END question_related_navigation -->
+			<!-- BEGIN received_points_information -->
+            <p>{RECEIVED_POINTS_INFORMATION}</p>
+			<!-- END received_points_information -->
+            <!-- BEGIN answer_feedback -->
+            <p>{ANSWER_FEEDBACK}</p>
+            <!-- END answer_feedback -->
+            <!-- BEGIN specific_feedback -->
+            <div class="test_specific_feedback">{SPECIFIC_FEEDBACK}</div>
+            <!-- END specific_feedback -->
+            <!-- BEGIN solution_output -->
+			<!-- BEGIN solution_output_details -->
+			<p><strong>{CORRECT_SOLUTION}</strong>:</p>
+			<div class="ilc_Page" id="ilc_Page">
+			{QUESTION_FEEDBACK}
+			</div>
+			<!-- END solution_output_details -->
+			<!-- END solution_output -->
+		</td>
+	</tr>
+</table>
+<!-- BEGIN reopenform --><form role="form" class="form-horizontal preventDoubleSubmission" name="test_output_bottom" method="post" action="{FORMACTION_REOPENFORM}"><!-- END reopenform -->
+<!-- BEGIN navigation_bottom -->
+<table class="fullwidth">
+	<tr>
+		<td align="left" width="33%" class="submit">
+<!-- BEGIN prev_bottom -->
+			<input type="submit" class="btn btn-default" name="cmd[{CMD_PREV}]" value="{BTN_PREV}" id="bottomprevbutton" />
+<!-- END prev_bottom -->
+		</td>
+		<td align="center" width="1" class="submit">
+<!-- BEGIN summary_bottom  -->
+			<input type="submit" class="btn btn-default" name="cmd[{CMD_SUMMARY}]" value="{BTN_SUMMARY}" id="bottomsummarybutton" />
+<!-- END summary_bottom -->
+		</td>
+		<td align="right" width="33%" class="submit">
+<!-- BEGIN postpone_bottom -->
+			<input type="submit" class="btn btn-default" name="cmd[{CMD_POSTPONE}]" value="{BTN_POSTPONE}" id="bottompostponebutton" />
+			&nbsp;&nbsp;
+<!-- END postpone_bottom -->
+<!-- BEGIN next_bottom -->{BTN_NEXT}<!-- END next_bottom -->
+		</td>
+	</tr>
+</table>
+<!-- END navigation_bottom -->
+<!-- BEGIN exam_id_footer -->
+<p>{EXAM_ID_TXT}&nbsp;{EXAM_ID_VAL}</p>
+<!-- END exam_id_footer -->
+<p></p>
+<input type="hidden" name="formtimestamp" value="{FORM_TIMESTAMP}" />
+<!-- BEGIN js_initialize -->
+{JS_INITIALIZE}
+<!-- END js_initialize -->
+<!-- BEGIN jsswitch -->
+<script type="text/javascript" charset="utf-8">
+	var jsswitch = document.getElementById("javascript_switch");
+	if (jsswitch != null)
+	{
+		jsswitch.style.display = "block";
+	}
+</script>
+<!-- END jsswitch -->
+<script type="text/javascript" charset="utf-8">
+	function saveformOnTimeReached()
+	{
+		if(typeof saveOrder == 'function') 
+		{
+			saveOrder('orderlist');
+		}
+		autosave('{AUTOSAVE_URL}');
+	}
+	function saveTextarea(editor)
+	{
+		document.forms["taForm"].submit();
+	}
+	function charCounter(e)
+	{
+		if(e.type == 'keyup')
+		{
+			content = tinyMCE.selectedInstance.getDoc().body.innerHTML;
+			content = content.replace(/&lt;/ig, "<");
+			content = content.replace(/&gt;/ig, ">");
+			stripped = content.replace(/(<([^>]+)>)/ig,"");
+			counterblock = YAHOO.util.Dom.get("charcounter");
+			if (counterblock != null)
+			{
+				counterblock.style.visibility = 'visible';
+				counter = YAHOO.util.Dom.get("myCounter");
+				if (maxL > 0) counter.value = maxL - stripped.length;
+			}
+			
+		}
+	}
+	
+	function initCharCounter()
+	{
+		content = YAHOO.util.Dom.get("TEXT").innerHTML;
+		content = content.replace(/&lt;/ig, "<");
+		content = content.replace(/&gt;/ig, ">");
+		stripped = content.replace(/(<([^>]+)>)/ig,"");
+		counterblock = YAHOO.util.Dom.get("charcounter");
+		if (counterblock != null)
+		{
+			counterblock.style.visibility = 'visible';
+			counter = YAHOO.util.Dom.get("myCounter");
+			if (maxL > 0) counter.value = maxL - stripped.length;
+		}
+	}
+
+    <!-- BEGIN autosave -->
+    function saveIt() {
+        autosave('{AUTOSAVEFORMACTION}');
+        window.setTimeout("saveIt()", {AUTOSAVEINTERVAL});
+    }
+
+    function startSave() {
+        window.setTimeout("saveIt()", {AUTOSAVEINTERVAL});
+    }
+    YAHOO.util.Event.onDOMReady(startSave);
+    <!-- END autosave -->
+	YAHOO.util.Event.onDOMReady(initCharCounter);
+
+	(function($){ $(document).ready( function()
+	{
+		//return;
+		$('#taForm').on('keyup keydown keypress', function(event) {
+			if (event.which == 13) {
+				if ($(event.target).prop("tagName").toLowerCase() != "textarea" &&
+					(
+						$(event.target).prop("tagName").toLowerCase() != "input"
+							||
+							$(event.target).prop("type") != "submit"
+						)) {
+					event.preventDefault();
+				}
+			}
+		});
+	}
+	); })(jQuery);
+	
+</script>
+<div id="autosavemessage" style="font-style: italic; border: 1px #666 solid; background-color: #ffffe0; position: fixed; right: 0; top: 0;"></div>
+</div>
+</form>
+</div>
