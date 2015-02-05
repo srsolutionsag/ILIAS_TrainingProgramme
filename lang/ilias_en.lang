@@ -15201,3 +15201,8 @@ rbac#:#orgu_view_learning_progress_rec#:#View Learning Progress of Unit incl. Su
 rbac#:#orgu_copy#:#Copy Organisational Unit
 exc#:#exc_no_team_yet_notice#:#You are not assigned to a team yet!
 prtf#:#prtf_edit_embedded_blog#:#Edit Blog "%s"
+prg#:#prg_new#:#New Training Programme
+prg#:#prg_add#:#Add Training Programme
+common#:#obj_prg_duplicate#:#Copy Training Programme
+common#:#obj_prg_select#:#-- Please select one Training Programme --
+common#:#obj_prg#:#Training Programme
