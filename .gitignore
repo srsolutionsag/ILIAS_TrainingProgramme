@@ -1,0 +1,6 @@
+## Directory-based project format:
+.idea/
+
+# ILIAS specific
+ilias.ini.php
+data/default/
