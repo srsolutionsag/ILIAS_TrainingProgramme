@@ -1,14 +1,14 @@
 <?php
 require_once(dirname(__FILE__) . '/../Statement/class.arStatementCollection.php');
-require_once('class.arOrder.php');
+require_once('class.arConcat.php');
 
 /**
- * Class arOrderCollection
+ * Class arConcatCollection
  *
  * @author  Fabian Schmid <fs@studer-raimann.ch>
  * @version 2.0.7
  */
-class arOrderCollection extends arStatementCollection {
+class arConcatCollection extends arStatementCollection {
 
 	/**
 	 * @return string
@@ -16,10 +16,10 @@ class arOrderCollection extends arStatementCollection {
 	public function asSQLStatement() {
 		$return = '';
 		if ($this->hasStatements()) {
-			$return .= ' ORDER BY ';
-			foreach ($this->getOrders() as $order) {
-				$return .= $order->asSQLStatement($this->getAr());
-				if ($order != end($this->getOrders())) {
+			$return = ', ';
+			foreach ($this->getConcats() as $concat) {
+				$return .= $concat->asSQLStatement($this->getAr());
+				if ($concat != end($this->getConcats())) {
 					$return .= ', ';
 				}
 			}
@@ -30,9 +30,9 @@ class arOrderCollection extends arStatementCollection {
 
 
 	/**
-	 * @return arOrder[]
+	 * @return arConcat[]
 	 */
-	public function getOrders() {
+	public function getConcats() {
 		return $this->statements;
 	}
 }
