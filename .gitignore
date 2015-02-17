@@ -4,3 +4,5 @@
 # ILIAS specific
 ilias.ini.php
 data/default/
+
+.DS_Store
