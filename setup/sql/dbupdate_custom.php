@@ -59,3 +59,8 @@ $ilDB->modifyTableColumn( ilTrainingProgrammeProgress::returnDbTableName()
 							   )
 						);
 ?>
+
+<#5>
+<?php
+	$ilCtrlStructureReader->getStructure();
+?>
