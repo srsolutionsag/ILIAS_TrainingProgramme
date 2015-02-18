@@ -42,3 +42,20 @@ $ilDB->modifyTableColumn( ilTrainingProgrammeProgress::returnDbTableName()
 						);
 
 ?>
+
+<#4>
+<?php
+
+// ActiveRecord seems to not interpret con_is_null correctly, so we have to set
+// it manually.
+
+require_once("./Modules/TrainingProgramme/classes/model/class.ilTrainingProgrammeProgress.php");
+
+ilTrainingProgrammeProgress::updateDB();
+$ilDB->modifyTableColumn( ilTrainingProgrammeProgress::returnDbTableName()
+						, "last_change_by"
+						, array( "notnull" => false
+							   , "default" => null
+							   )
+						);
+?>
