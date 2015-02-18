@@ -17,12 +17,12 @@ ilTrainingProgrammeProgress::installDB();
 require_once("./Modules/TrainingProgramme/classes/model/class.ilTrainingProgrammeProgress.php");
 require_once("./Modules/TrainingProgramme/classes/model/class.ilTrainingProgrammeAssignment.php");
 
+
 // Active Record does not support tuples as primary keys, so we have to
 // set those on our own.
-$ilDB->dropPrimaryKey(ilTrainingProgrammeProgress::returnDbTableName());
-$ilDB->addPrimaryKey( ilTrainingProgrammeProgress::returnDbTableName()
-					, array("assignment_id", "prg_id", "usr_id")
-					);
+$ilDB->addUniqueConstraint( ilTrainingProgrammeProgress::returnDbTableName()
+						  , array("assignment_id", "prg_id", "usr_id")
+						  );
 
 ?>
 
