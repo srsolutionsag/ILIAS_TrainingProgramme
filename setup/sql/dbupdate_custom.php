@@ -64,3 +64,9 @@ $ilDB->modifyTableColumn( ilTrainingProgrammeProgress::returnDbTableName()
 <?php
 	$ilCtrlStructureReader->getStructure();
 ?>
+
+<#6>
+<?php
+	// added listener for Services/Tracking
+	$ilCtrlStructureReader->getStructure();
+?>
