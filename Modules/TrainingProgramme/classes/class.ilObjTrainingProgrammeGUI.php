@@ -19,6 +19,7 @@ require_once("./Services/Object/classes/class.ilObjectAddNewItemGUI.php");
  * @ilCtrl_Calls ilObjTrainingProgrammeGUI: ilCommonActionDispatcherGUI
  * @ilCtrl_Calls ilObjTrainingProgrammeGUI: ilColumnGUI
  * @ilCtrl_Calls ilObjTrainingProgrammeGUI: ilObjTrainingProgrammeSettingsGUI
+ * @ilCtrl_Calls ilObjTrainingProgrammeGUI: ilObjTrainingProgrammeMembersGUI
  */
 
 class ilObjTrainingProgrammeGUI extends ilContainerGUI {
@@ -131,7 +132,14 @@ class ilObjTrainingProgrammeGUI extends ilContainerGUI {
 				$this->denyAccessIfNot("write");
 				$this->tabs_gui->setTabActive(self::TAB_SETTINGS);
 				require_once("Modules/TrainingProgramme/classes/class.ilObjTrainingProgrammeSettingsGUI.php");
-				$gui = new ilObjTrainingProgrammeSettingsGUI($this->ref_id);
+				$gui = new ilObjTrainingProgrammeSettingsGUI($this, $this->ref_id);
+				$this->ctrl->forwardCommand($gui);
+				break;
+			case "ilobjtrainingprogrammemembersgui":
+				$this->denyAccessIfNot("manage_members");
+				$this->tabs_gui->setTabActive(self::TAB_MEMBERS);
+				require_once("Modules/TrainingProgramme/classes/class.ilObjTrainingProgrammeMembersGUI.php");
+				$gui = new ilObjTrainingProgrammeMembersGUI($this, $this->ref_id);
 				$this->ctrl->forwardCommand($gui);
 				break;
 			case false:
@@ -269,6 +277,7 @@ class ilObjTrainingProgrammeGUI extends ilContainerGUI {
 	const TAB_VIEW_CONTENT = "view_content";
 	const TAB_INFO = "info_short";
 	const TAB_SETTINGS = "settings";
+	const TAB_MEMBERS = "members";
 	
 	public function getTabs() {
 		if ($this->checkAccess("read")) {
@@ -288,6 +297,13 @@ class ilObjTrainingProgrammeGUI extends ilContainerGUI {
 								   );
 		}
 		
+		if ($this->checkAccess("manage_members")) {
+			$this->tabs_gui->addTab( self::TAB_MEMBERS
+								   , $this->lng->txt("members")
+								   , $this->getLinkTarget("members")
+								   );
+		}
+		
 		parent::getTabs($this->tabs_gui);
 	}
 	
@@ -297,6 +313,9 @@ class ilObjTrainingProgrammeGUI extends ilContainerGUI {
 		}
 		if ($a_cmd == "settings") {
 			return $this->ctrl->getLinkTargetByClass("ilobjtrainingprogrammesettingsgui", "view");
+		}
+		if ($a_cmd == "members") {
+			return $this->ctrl->getLinkTargetByClass("ilobjtrainingprogrammemembersgui", "view");
 		}
 		
 		return $this->ctrl->getLinkTarget($this, $a_cmd);
