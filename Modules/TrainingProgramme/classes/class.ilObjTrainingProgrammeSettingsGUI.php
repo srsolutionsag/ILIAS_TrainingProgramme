@@ -48,10 +48,13 @@ class ilObjTrainingProgrammeSettingsGUI {
 	 */
 	public $lng;
 
-	public function __construct($a_ref_id) {
+	protected $parent_gui;
+
+	public function __construct($a_parent_gui, $a_ref_id) {
 		global $tpl, $ilCtrl, $ilAccess, $ilToolbar, $ilLocator, $tree, $lng, $ilLog, $ilias;
 
 		$this->ref_id = $a_ref_id;
+		$this->parent_gui = $a_parent_gui;
 		$this->tpl = $tpl;
 		$this->ctrl = $ilCtrl;
 		$this->ilAccess = $ilAccess;
@@ -77,6 +80,7 @@ class ilObjTrainingProgrammeSettingsGUI {
 		switch ($cmd) {
 			case "view":
 			case "update":
+			case "cancel":
 				$cont = $this->$cmd();
 				break;
 			default:
@@ -91,6 +95,10 @@ class ilObjTrainingProgrammeSettingsGUI {
 		$form = $this->buildForm();
 		$this->fillForm($form);
 		return $form->getHTML();
+	}
+	
+	protected function cancel() {
+		$this->ctrl->redirect($this->parent_gui);
 	}
 	
 	protected function update() {
