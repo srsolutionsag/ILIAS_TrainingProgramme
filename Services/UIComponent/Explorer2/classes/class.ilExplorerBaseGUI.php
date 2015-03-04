@@ -24,6 +24,7 @@ abstract class ilExplorerBaseGUI
 	protected $select_postvar = "";
 	protected $offline_mode = false;
 	protected $sec_highl_nodes = array();
+	protected $enable_dnd = false;
 
 	/**
 	 * Constructor
@@ -573,12 +574,20 @@ abstract class ilExplorerBaseGUI
 				"open_parents" => false,
 				"strings" => array("loading" => "Loading ...", "new_node" => "New node")
 			),
-			"plugins" => array("html_data", "themes"),
+			"plugins" => $this->getJSTreePlugins(),
 			"themes" => array("dots" => false, "icons" => false, "theme" => ""),
 			"html_data" => array()
 		);
 
 		return 'il.Explorer2.init('.json_encode($config).', '.json_encode($js_tree_config).');';
+	}
+
+	protected function getJSTreePlugins() {
+		$plugins = array("html_data", "themes");
+		if($this->isEnableDnd()) {
+			$plugins[] = "dnd";
+		}
+		return $plugins;
 	}
 
 
@@ -842,7 +851,23 @@ abstract class ilExplorerBaseGUI
 	{
 		$tpl->touchBlock("list_end");
 		$tpl->touchBlock("tag");
-	}	
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function isEnableDnd() {
+		return $this->enable_dnd;
+	}
+
+
+	/**
+	 * Enable Drag & Drop functionality
+	 * @param boolean $enable_dnd
+	 */
+	public function setEnableDnd($enable_dnd) {
+		$this->enable_dnd = $enable_dnd;
+	}
 }
 
 ?>
