@@ -395,7 +395,7 @@ class ilAccordionGUI
 		$this->addCss();
 		
 		$tpl = new ilTemplate("tpl.accordion.html", true, true, "Services/Accordion");
-		foreach ($this->getItems() as $item)
+		foreach ($this->getItems() as $key=>$item)
 		{
 			$tpl->setCurrentBlock("item");
 			$tpl->setVariable("HEADER", $item["header"]);
@@ -414,6 +414,7 @@ class ilAccordionGUI
 			
 			$tpl->setVariable("INNER_CONTAINER_CLASS", $this->getInnerContainerClass()
 				? $this->getInnerContainerClass() : "il_".$or_short."AccordionInnerContainer");
+			$tpl->setVariable("INNER_CONTAINER_ID", 'ilAccordionInnerContainer'.$key);
 
 
 			if ($height > 0)
