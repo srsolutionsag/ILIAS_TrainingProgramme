@@ -118,6 +118,28 @@ class ilTrainingProgrammeUserProgress {
 		}, $progresses));
 	}
 	
+	/** 
+	 * Get a user readable representation of a status.
+	 */
+	static public function statusToRepr($a_status) {
+		global $lng;
+		$lng->loadLanguageModule("prg");
+		
+		if ($a_status == ilTrainingProgrammeProgress::STATUS_IN_PROGRESS) {
+			return $lng->txt("prg_status_in_progress");
+		}
+		if ($a_status == ilTrainingProgrammeProgress::STATUS_COMPLETED) {
+			return $lng->txt("prg_status_completed");
+		}
+		if ($a_status == ilTrainingProgrammeProgress::STATUS_ACCREDITED) {
+			return $lng->txt("prg_status_accredited");
+		}
+		if ($a_status == ilTrainingProgrammeProgress::STATUS_NOT_RELEVANT) {
+			return $lng->txt("prg_status_not_relevant");
+		}
+		throw new ilException("Unknown status: '$a_status'");
+	}
+	
 	/**
 	 * Get the program node where this progress belongs to was made. 
 	 *
@@ -481,6 +503,28 @@ class ilTrainingProgrammeUserProgress {
 		return array_map(function($child) use ($ass_id) {
 			return $child->getProgressForAssignment($ass_id);
 		}, $prg->getChildren());
+	}
+	
+	/**
+	 * Get a list with the names of the children of this node that a were completed
+	 * or accredited for the given assignment.
+	 * 
+	 * @param int $a_assignment_id
+	 * @return string[]
+	 */ 
+	public function getNamesOfCompletedOrAccreditedChildren() {
+		$prg = $this->getTrainingProgramme();
+		$children = $prg->getChildren();
+		$ass_id = $this->progress->getAssignmentId();
+		$names = array();
+		foreach ($children as $child) {
+			$prgrs = $child->getProgressForAssignment($ass_id);
+			if (!$prgrs->isSuccessfull()) {
+				continue;
+			}
+			$names[] = $child->getTitle();
+		}
+		return $names;
 	}
 }
 

@@ -70,3 +70,25 @@ $ilDB->modifyTableColumn( ilTrainingProgrammeProgress::returnDbTableName()
 	// added listener for Services/Tracking
 	$ilCtrlStructureReader->getStructure();
 ?>
+
+<#7>
+<?php
+
+require_once("./Services/Migration/DBUpdate_3560/classes/class.ilDBUpdateNewObjectType.php");
+$obj_type_id = ilDBUpdateNewObjectType::addNewType("prg");
+$existing_ops = array("visible", "read", "write", "copy", "delete", "edit_permission");
+foreach ($existing_ops as $op) {
+	$op_id = ilDBUpdateNewObjectType::getCustomRBACOperationId($op);
+	ilDBUpdateNewObjectType::addRBACOperation($obj_type_id, $op_id);		
+}
+?>
+
+<#8>
+<?php
+
+require_once("./Services/Migration/DBUpdate_3560/classes/class.ilDBUpdateNewObjectType.php");
+$obj_type_id = ilDBUpdateNewObjectType::getObjectTypeId("prg");
+$op_id = ilDBUpdateNewObjectType::addCustomRBACOperation("manage_members" , "Manage Members", 'object', 300);
+ilDBUpdateNewObjectType::addRBACOperation($obj_type_id, $op_id);
+
+?>
