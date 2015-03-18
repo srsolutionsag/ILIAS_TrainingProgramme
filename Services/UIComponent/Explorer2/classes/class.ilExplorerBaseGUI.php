@@ -583,7 +583,7 @@ abstract class ilExplorerBaseGUI
 	}
 
 	protected function getJSTreePlugins() {
-		$plugins = array("html_data", "themes");
+		$plugins = array("html_data", "themes", "json_data");
 		if($this->isEnableDnd()) {
 			$plugins[] = "dnd";
 		}
