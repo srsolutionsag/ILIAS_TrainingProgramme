@@ -75,7 +75,7 @@ $ilDB->modifyTableColumn( ilTrainingProgrammeProgress::returnDbTableName()
 <?php
 
 require_once("./Services/Migration/DBUpdate_3560/classes/class.ilDBUpdateNewObjectType.php");
-$obj_type_id = ilDBUpdateNewObjectType::addNewType("prg");
+$obj_type_id = ilDBUpdateNewObjectType::addNewType("prg", "TrainingProgramme");
 $existing_ops = array("visible", "read", "write", "copy", "delete", "edit_permission");
 foreach ($existing_ops as $op) {
 	$op_id = ilDBUpdateNewObjectType::getCustomRBACOperationId($op);
@@ -91,4 +91,22 @@ $obj_type_id = ilDBUpdateNewObjectType::getObjectTypeId("prg");
 $op_id = ilDBUpdateNewObjectType::addCustomRBACOperation("manage_members" , "Manage Members", 'object', 300);
 ilDBUpdateNewObjectType::addRBACOperation($obj_type_id, $op_id);
 
+?>
+<#9>
+<?php
+
+require_once("./Modules/TrainingProgramme/classes/model/class.ilTrainingProgrammeAdvancedMetadataRecord.php");
+require_once("./Modules/TrainingProgramme/classes/model/class.ilTrainingProgrammeType.php");
+require_once("./Modules/TrainingProgramme/classes/model/class.ilTrainingProgrammeTypeTranslation.php");
+
+ilTrainingProgrammeAdvancedMetadataRecord::installDB();
+ilTrainingProgrammeType::installDB();
+ilTrainingProgrammeTypeTranslation::installDB();
+
+?>
+
+<#10>
+<?php
+// reload
+$ilCtrlStructureReader->getStructure();
 ?>
