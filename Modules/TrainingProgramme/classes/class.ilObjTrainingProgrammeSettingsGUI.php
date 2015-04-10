@@ -136,7 +136,12 @@ class ilObjTrainingProgrammeSettingsGUI {
 			$response = ilAsyncOutputHandler::encodeAsyncResponse(array("success"=>false, "errors"=>$form->getErrors()));
 		}
 
-		return ilAsyncOutputHandler::handleAsyncOutput($form->getHTML(), $response, false);
+		//TODO: needs clean up (ugly workaround)
+		if($this->ctrl->isAsynch()) {
+			return ilAsyncOutputHandler::handleAsyncOutput($form->getHTML(), $response, false);
+		} else {
+			$this->ctrl->redirect($this);
+		}
 	}
 
 	protected function cancel() {
@@ -148,7 +153,7 @@ class ilObjTrainingProgrammeSettingsGUI {
 	protected function buildModalHeading($label) {
 		$this->ctrl->saveParameterByClass('ilobjtrainingprogrammesettingsgui', 'ref_id');
 		$heading_button = ilLinkButton::getInstance();
-		$heading_button->setCaption($this->lng->txt('prg_open_node'));
+		$heading_button->setCaption('prg_open_node');
 		$heading_button->setUrl($this->ctrl->getLinkTargetByClass('ilobjtrainingprogrammetreegui', 'view'));
 
 		$heading = "<div class=''>".$label."<div class='pull-right'>".$heading_button->render()."</div></div>";
@@ -185,6 +190,7 @@ class ilObjTrainingProgrammeSettingsGUI {
 		$form->addItem($header);
 		
 		$item = new ilSelectInputGUI($this->lng->txt("type"), self::PROP_TYPE);
+		$item->setOptions(ilTrainingProgrammeType::getAllTypesArray());
 		$form->addItem($item);
 		
 		$header = new ilFormSectionHeaderGUI();
@@ -218,7 +224,7 @@ class ilObjTrainingProgrammeSettingsGUI {
 		$a_form->setValuesByArray(array
 			( self::PROP_TITLE => $obj->getTitle()
 			, self::PROP_DESC => $obj->getDescription()
-			// TODO: , self::PROP_TYPE
+			, self::PROP_TYPE => $obj->getSubtypeId()
 			, self::PROP_POINTS => $obj->getPoints()
 			, self::PROP_STATUS => $obj->getStatus()
 			));
@@ -236,7 +242,7 @@ class ilObjTrainingProgrammeSettingsGUI {
 		
 		$obj->setTitle($a_form->getItemByPostVar(self::PROP_TITLE)->getValue());
 		$obj->setDescription($a_form->getItemByPostVar(self::PROP_DESC)->getValue());
-		//TODO: $obj->setType($a_form->getItemByPostVar(self::PROP_TYPE)->getValue());
+		$obj->setSubtypeId($a_form->getItemByPostVar(self::PROP_TYPE)->getValue());
 		$obj->setPoints($a_form->getItemByPostVar(self::PROP_POINTS)->getValue());
 		$obj->setStatus($a_form->getItemByPostVar(self::PROP_STATUS)->getValue());
 	}
