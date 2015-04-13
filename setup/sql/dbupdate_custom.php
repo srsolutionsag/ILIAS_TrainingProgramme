@@ -110,3 +110,20 @@ ilTrainingProgrammeTypeTranslation::installDB();
 // reload
 $ilCtrlStructureReader->getStructure();
 ?>
+
+<#11>
+<?php
+require_once("./Modules/TrainingProgramme/classes/model/class.ilTrainingProgrammeType.php");
+
+// ActiveRecord seems to not interpret con_is_null correctly, so we have to set
+// it manually.
+
+ilTrainingProgrammeType::updateDB();
+$ilDB->modifyTableColumn( ilTrainingProgrammeType::returnDbTableName()
+	, "last_update"
+	, array( "notnull" => false
+	, "default" => null
+	)
+);
+?>
+?>
