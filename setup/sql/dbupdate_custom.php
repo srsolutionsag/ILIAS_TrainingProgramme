@@ -126,4 +126,9 @@ $ilDB->modifyTableColumn( ilTrainingProgrammeType::returnDbTableName()
 	)
 );
 ?>
+
+<#12>
+<?php
+// reload
+$ilCtrlStructureReader->getStructure();
 ?>
