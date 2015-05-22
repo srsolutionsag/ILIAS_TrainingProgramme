@@ -1,26 +1,26 @@
 <#1>
 <?php
 
-require_once("./Modules/TrainingProgramme/classes/model/class.ilTrainingProgramme.php");
-require_once("./Modules/TrainingProgramme/classes/model/class.ilTrainingProgrammeAssignment.php");
-require_once("./Modules/TrainingProgramme/classes/model/class.ilTrainingProgrammeProgress.php");
+require_once("./Modules/StudyProgramme/classes/model/class.ilStudyProgramme.php");
+require_once("./Modules/StudyProgramme/classes/model/class.ilStudyProgrammeAssignment.php");
+require_once("./Modules/StudyProgramme/classes/model/class.ilStudyProgrammeProgress.php");
 
-ilTrainingProgramme::installDB();
-ilTrainingProgrammeAssignment::installDB();
-ilTrainingProgrammeProgress::installDB();
+ilStudyProgramme::installDB();
+ilStudyProgrammeAssignment::installDB();
+ilStudyProgrammeProgress::installDB();
 
 ?>
 
 <#2>
 <?php
 
-require_once("./Modules/TrainingProgramme/classes/model/class.ilTrainingProgrammeProgress.php");
-require_once("./Modules/TrainingProgramme/classes/model/class.ilTrainingProgrammeAssignment.php");
+require_once("./Modules/StudyProgramme/classes/model/class.ilStudyProgrammeProgress.php");
+require_once("./Modules/StudyProgramme/classes/model/class.ilStudyProgrammeAssignment.php");
 
 
 // Active Record does not support tuples as primary keys, so we have to
 // set those on our own.
-$ilDB->addUniqueConstraint( ilTrainingProgrammeProgress::returnDbTableName()
+$ilDB->addUniqueConstraint( ilStudyProgrammeProgress::returnDbTableName()
 						  , array("assignment_id", "prg_id", "usr_id")
 						  );
 
@@ -32,9 +32,9 @@ $ilDB->addUniqueConstraint( ilTrainingProgrammeProgress::returnDbTableName()
 // ActiveRecord seems to not interpret con_is_null correctly, so we have to set
 // it manually.
 
-require_once("./Modules/TrainingProgramme/classes/model/class.ilTrainingProgrammeProgress.php");
+require_once("./Modules/StudyProgramme/classes/model/class.ilStudyProgrammeProgress.php");
 
-$ilDB->modifyTableColumn( ilTrainingProgrammeProgress::returnDbTableName()
+$ilDB->modifyTableColumn( ilStudyProgrammeProgress::returnDbTableName()
 						, "completion_by"
 						, array( "notnull" => false
 							   , "default" => null
@@ -49,10 +49,10 @@ $ilDB->modifyTableColumn( ilTrainingProgrammeProgress::returnDbTableName()
 // ActiveRecord seems to not interpret con_is_null correctly, so we have to set
 // it manually.
 
-require_once("./Modules/TrainingProgramme/classes/model/class.ilTrainingProgrammeProgress.php");
+require_once("./Modules/StudyProgramme/classes/model/class.ilStudyProgrammeProgress.php");
 
-ilTrainingProgrammeProgress::updateDB();
-$ilDB->modifyTableColumn( ilTrainingProgrammeProgress::returnDbTableName()
+ilStudyProgrammeProgress::updateDB();
+$ilDB->modifyTableColumn( ilStudyProgrammeProgress::returnDbTableName()
 						, "last_change_by"
 						, array( "notnull" => false
 							   , "default" => null
@@ -75,7 +75,7 @@ $ilDB->modifyTableColumn( ilTrainingProgrammeProgress::returnDbTableName()
 <?php
 
 require_once("./Services/Migration/DBUpdate_3560/classes/class.ilDBUpdateNewObjectType.php");
-$obj_type_id = ilDBUpdateNewObjectType::addNewType("prg", "TrainingProgramme");
+$obj_type_id = ilDBUpdateNewObjectType::addNewType("prg", "StudyProgramme");
 $existing_ops = array("visible", "read", "write", "copy", "delete", "edit_permission");
 foreach ($existing_ops as $op) {
 	$op_id = ilDBUpdateNewObjectType::getCustomRBACOperationId($op);
@@ -95,13 +95,13 @@ ilDBUpdateNewObjectType::addRBACOperation($obj_type_id, $op_id);
 <#9>
 <?php
 
-require_once("./Modules/TrainingProgramme/classes/model/class.ilTrainingProgrammeAdvancedMetadataRecord.php");
-require_once("./Modules/TrainingProgramme/classes/model/class.ilTrainingProgrammeType.php");
-require_once("./Modules/TrainingProgramme/classes/model/class.ilTrainingProgrammeTypeTranslation.php");
+require_once("./Modules/StudyProgramme/classes/model/class.ilStudyProgrammeAdvancedMetadataRecord.php");
+require_once("./Modules/StudyProgramme/classes/model/class.ilStudyProgrammeType.php");
+require_once("./Modules/StudyProgramme/classes/model/class.ilStudyProgrammeTypeTranslation.php");
 
-ilTrainingProgrammeAdvancedMetadataRecord::installDB();
-ilTrainingProgrammeType::installDB();
-ilTrainingProgrammeTypeTranslation::installDB();
+ilStudyProgrammeAdvancedMetadataRecord::installDB();
+ilStudyProgrammeType::installDB();
+ilStudyProgrammeTypeTranslation::installDB();
 
 ?>
 
@@ -113,13 +113,13 @@ $ilCtrlStructureReader->getStructure();
 
 <#11>
 <?php
-require_once("./Modules/TrainingProgramme/classes/model/class.ilTrainingProgrammeType.php");
+require_once("./Modules/StudyProgramme/classes/model/class.ilStudyProgrammeType.php");
 
 // ActiveRecord seems to not interpret con_is_null correctly, so we have to set
 // it manually.
 
-ilTrainingProgrammeType::updateDB();
-$ilDB->modifyTableColumn( ilTrainingProgrammeType::returnDbTableName()
+ilStudyProgrammeType::updateDB();
+$ilDB->modifyTableColumn( ilStudyProgrammeType::returnDbTableName()
 	, "last_update"
 	, array( "notnull" => false
 	, "default" => null
