@@ -12,8 +12,8 @@ require_once("./Modules/StudyProgramme/classes/class.ilObjStudyProgrammeSettings
  * @version 1.0.0
  */
 class ilObjStudyProgrammeTreeExplorerGUI extends ilExplorerBaseGUI {
-	protected $js_training_programme_path = "./Modules/StudyProgramme/templates/js/ilStudyProgramme.js";
-	protected $css_training_programme_path = "./Modules/StudyProgramme/templates/css/ilStudyProgramme.css";
+	protected $js_study_programme_path = "./Modules/StudyProgramme/templates/js/ilStudyProgramme.js";
+	protected $css_study_programme_path = "./Modules/StudyProgramme/templates/css/ilStudyProgramme.css";
 
 	/**
 	 * @var array
@@ -98,11 +98,11 @@ class ilObjStudyProgrammeTreeExplorerGUI extends ilExplorerBaseGUI {
 		$current_ref_id = (isset($_GET["ref_id"]))? $_GET["ref_id"] : -1;
 		$current_node = ($node->getRefId() == $current_ref_id);
 		$enable_delete = true;
-		$is_training_programme = ($node instanceof ilObjStudyProgramme);
+		$is_study_programme = ($node instanceof ilObjStudyProgramme);
 
 		// TODO: implement nicer way to create links for StudyProgrammes or LP-children
 
-		if($is_training_programme){
+		if($is_study_programme){
 			if ($current_node || $node->getRoot() == NULL) {
 				$enable_delete = false;
 			}
@@ -119,11 +119,11 @@ class ilObjStudyProgrammeTreeExplorerGUI extends ilExplorerBaseGUI {
 
 		$data_line = '<span class="'.$node_classes.'">' . $node->getTitle() .'</span>';
 
-		$data_line .= ($is_training_programme)? '<span class="points">('. $node->getPoints() ." ".$this->lng->txt('prg_points').')</span>' : '';
+		$data_line .= ($is_study_programme)? '<span class="points">('. $node->getPoints() ." ".$this->lng->txt('prg_points').')</span>' : '';
 
 		if($this->checkAccess('write', $node->getRefId())) {
 			$data_line .= '<span class="icon_bar">';
-			if($is_training_programme) {
+			if($is_study_programme) {
 				$data_line .= (!$current_node)? $this->getActionLink('ilObjStudyProgrammeSettingsGUI', 'view', array('ref_id'=>$node->getRefId()), ilGlyphGUI::get(ilGlyphGUI::INFO)) : '';
 				$data_line .= $this->getActionLink('ilObjStudyProgrammeTreeGUI', 'create', array('ref_id'=>$node->getRefId()), ilGlyphGUI::get(ilGlyphGUI::ADD));
 			}
@@ -218,10 +218,10 @@ class ilObjStudyProgrammeTreeExplorerGUI extends ilExplorerBaseGUI {
 	protected function getLinkTarget() {
 		global $ilCtrl;
 
-		/*if ($ilCtrl->getCmdClass() == "ilobjtrainingprogrammegui" AND in_array($ilCtrl->getCmd(), $this->stay_with_command)) {
+		/*if ($ilCtrl->getCmdClass() == "ilobjstudyprogrammegui" AND in_array($ilCtrl->getCmd(), $this->stay_with_command)) {
 			return $ilCtrl->getLinkTargetByClass($ilCtrl->getCmdClass(), $ilCtrl->getCmd());
 		} else {
-			return $ilCtrl->getLinkTargetByClass("ilobjtrainingprogrammegui", "view");
+			return $ilCtrl->getLinkTargetByClass("ilobjstudyprogrammegui", "view");
 		}*/
 		return '#';
 	}
@@ -337,10 +337,10 @@ class ilObjStudyProgrammeTreeExplorerGUI extends ilExplorerBaseGUI {
 	 * @return string
 	 */
 	public function getHTML() {
-		$this->tpl->addJavascript($this->js_training_programme_path);
-		$this->tpl->addCss($this->css_training_programme_path);
+		$this->tpl->addJavascript($this->js_study_programme_path);
+		$this->tpl->addCss($this->css_study_programme_path);
 
-		$this->tpl->addOnLoadCode('$("#'.$this->getContainerId().'").training_programme_tree('.json_encode($this->js_conf).');');
+		$this->tpl->addOnLoadCode('$("#'.$this->getContainerId().'").study_programme_tree('.json_encode($this->js_conf).');');
 
 		return parent::getHTML();
 	}

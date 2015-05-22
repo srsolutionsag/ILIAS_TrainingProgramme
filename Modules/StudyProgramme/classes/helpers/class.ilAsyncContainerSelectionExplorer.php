@@ -44,7 +44,7 @@ class ilAsyncContainerSelectionExplorer extends ilContainerSelectionExplorer {
 	}
 
 	public function initJs() {
-		self::addOnLoadCode('explorer', '$("#'.$this->getId().'").training_programme_async_explorer('.json_encode($this->js_conf).');');
+		self::addOnLoadCode('explorer', '$("#'.$this->getId().'").study_programme_async_explorer('.json_encode($this->js_conf).');');
 	}
 
 	/**
