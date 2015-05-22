@@ -7,7 +7,7 @@ require_once("./Services/Form/classes/class.ilPropertyFormGUI.php");
  * @version 1.0.0
  */
 class ilAsyncPropertyFormGUI extends ilPropertyFormGUI {
-	protected static $js_path = "./Modules/TrainingProgramme/templates/js/";
+	protected static $js_path = "./Modules/StudyProgramme/templates/js/";
 	protected static $default_from_name = "async_form";
 	protected static $js_on_load_added = array();
 
