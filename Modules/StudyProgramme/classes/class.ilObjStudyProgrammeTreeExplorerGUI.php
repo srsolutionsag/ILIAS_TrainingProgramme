@@ -7,7 +7,7 @@ require_once("./Services/UIComponent/Button/classes/class.ilLinkButton.php");
 require_once("./Modules/StudyProgramme/classes/class.ilObjStudyProgrammeSettingsGUI.php");
 /**
  * Class ilStudyProgrammeTreeGUI
- * ilObjStudyProgrammeTreeExplorerGUI generates the tree output for TrainingProgrammes
+ * ilObjStudyProgrammeTreeExplorerGUI generates the tree output for StudyProgrammes
  * This class builds the tree with drag & drop functionality and some additional buttons which triggers bootstrap-modals
  *
  * @author  Michael Herren <mh@studer-raimann.ch>
@@ -152,7 +152,7 @@ class ilObjStudyProgrammeTreeExplorerGUI extends ilExplorerBaseGUI {
 		// add the tree buttons
 		if($this->checkAccess('write', $node->getRefId())) {
 			if($is_study_programme) {
-				$this->parseTrainingProgrammeNodeButtons($node, $node_config, $tpl);
+				$this->parseStudyProgrammeNodeButtons($node, $node_config, $tpl);
 			} else {
 				$this->parseLeafNodeButtons($node, $node_config, $tpl);
 			}
@@ -185,26 +185,26 @@ class ilObjStudyProgrammeTreeExplorerGUI extends ilExplorerBaseGUI {
 	/**
 	 * Generates the buttons for a training-programme node
 	 *
-	 * @param ilObjTrainingProgramme $node parsed node
+	 * @param ilObjStudyProgramme $node parsed node
 	 * @param array $node_config configuration of current node
 	 * @param ilTemplate $tpl current node template
 	 */
-	protected function parseTrainingProgrammeNodeButtons($node, $node_config, $tpl) {
+	protected function parseStudyProgrammeNodeButtons($node, $node_config, $tpl) {
 		$tpl->setCurrentBlock('enable-tree-buttons');
 		$tpl->touchBlock('enable-tree-buttons');
 
 		// show info button only when it not the current node
 		if(!$node_config['is_current_node']) {
-			$info_button = $this->getNodeButtonActionLink('ilObjTrainingProgrammeSettingsGUI', 'view', array('ref_id'=>$node->getRefId()), ilGlyphGUI::get(ilGlyphGUI::INFO));
+			$info_button = $this->getNodeButtonActionLink('ilObjStudyProgrammeSettingsGUI', 'view', array('ref_id'=>$node->getRefId()), ilGlyphGUI::get(ilGlyphGUI::INFO));
 			$tpl->setVariable('NODE_INFO_BUTTON', $info_button);
 		}
 
-		$create_button = $this->getNodeButtonActionLink('ilObjTrainingProgrammeTreeGUI', 'create', array('ref_id'=>$node->getRefId()), ilGlyphGUI::get(ilGlyphGUI::ADD));
+		$create_button = $this->getNodeButtonActionLink('ilObjStudyProgrammeTreeGUI', 'create', array('ref_id'=>$node->getRefId()), ilGlyphGUI::get(ilGlyphGUI::ADD));
 		$tpl->setVariable('NODE_CREATE_BUTTON', $create_button);
 
 		// only show delete button when its not the current node, not the root-node
 		if($node_config['is_delete_enabled']) {
-			$delete_button = $this->getNodeButtonActionLink('ilObjTrainingProgrammeTreeGUI', 'delete', array('ref_id'=>$node->getRefId(), 'item_ref_id'=>$node_config['current_ref_id']), ilGlyphGUI::get(ilGlyphGUI::REMOVE));
+			$delete_button = $this->getNodeButtonActionLink('ilObjStudyProgrammeTreeGUI', 'delete', array('ref_id'=>$node->getRefId(), 'item_ref_id'=>$node_config['current_ref_id']), ilGlyphGUI::get(ilGlyphGUI::REMOVE));
 			$tpl->setVariable('NODE_DELETE_BUTTON', $delete_button);
 		}
 
@@ -224,7 +224,7 @@ class ilObjStudyProgrammeTreeExplorerGUI extends ilExplorerBaseGUI {
 
 		// only show delete button when its not the current node
 		if($node_config['is_delete_enabled']) {
-			$delete_button = $this->getNodeButtonActionLink('ilObjTrainingProgrammeTreeGUI', 'delete', array('ref_id'=>$node->getRefId(), 'item_ref_id'=>$node_config['current_ref_id']), ilGlyphGUI::get(ilGlyphGUI::REMOVE));
+			$delete_button = $this->getNodeButtonActionLink('ilObjStudyProgrammeTreeGUI', 'delete', array('ref_id'=>$node->getRefId(), 'item_ref_id'=>$node_config['current_ref_id']), ilGlyphGUI::get(ilGlyphGUI::REMOVE));
 			$tpl->setVariable('NODE_DELETE_BUTTON', $delete_button);
 		}
 
@@ -237,7 +237,7 @@ class ilObjStudyProgrammeTreeExplorerGUI extends ilExplorerBaseGUI {
 	 * @return ilTemplate
 	 */
 	protected function getNodeTemplateInstance() {
-		return new ilTemplate("tpl.tree_node_content.html", true, true, "Modules/TrainingProgramme");
+		return new ilTemplate("tpl.tree_node_content.html", true, true, "Modules/StudyProgramme");
 	}
 
 	/**
