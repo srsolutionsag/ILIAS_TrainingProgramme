@@ -120,6 +120,10 @@ class ilStudyProgrammeUserAssignment {
 	 * Delete the assignment from database.
 	 */
 	public function delete() {
+		require_once("Modules/StudyProgramme/classes/class.ilStudyProgrammeUserProgress.php");
+		foreach (ilStudyProgrammeUserProgress::getInstancesForAssignment($this->getId()) as $progress) {
+			$progress->delete();
+		}
 		$this->assignment->delete();
 	}
 	
@@ -133,7 +137,7 @@ class ilStudyProgrammeUserAssignment {
 		$prg = $this->getStudyProgramme();
 		$id = $this->getId();
 		
-		$prg->applyToSubTreeNodes(function($node) use ($id) {
+		$prg->applyToSubTreeNodes(function(ilObjStudyProgramme $node) use ($id) {
 			$progress = $node->getProgressForAssignment($id);
 			return $progress->updateFromProgramNode($prg);
 		});
