@@ -89,6 +89,11 @@ class ilObjectLP
 					$instance = new ilSessionLP($a_obj_id);
 					break;
 
+				case "prg":
+					include_once "Modules/StudyProgramme/classes/class.ilStudyProgrammeLP.php";
+					$instance = new ilStudyProgrammeLP($a_obj_id);
+					break;
+
 				// plugin
 				case $objDefinition->isPluginTypeName($type):
 					include_once "Services/Component/classes/class.ilPluginLP.php";
@@ -111,7 +116,7 @@ class ilObjectLP
 	{
 		global $objDefinition;
 		
-		$valid = array("crs", "grp", "fold", "lm", "htlm", "sahs", "tst", "exc", "sess");		
+		$valid = array("crs", "grp", "fold", "lm", "htlm", "sahs", "tst", "exc", "sess", "prg");		
 		if(in_array($a_type, $valid))
 		{
 			return true;			

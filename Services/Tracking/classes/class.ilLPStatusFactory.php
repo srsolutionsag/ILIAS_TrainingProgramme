@@ -116,6 +116,11 @@ class ilLPStatusFactory
 				{
 					return self::$class_by_obj_id[$a_obj_id] = self::_getClassById($a_obj_id, $mode);
 				}
+
+			case ilLPObjSettings::LP_MODE_STUDY_PROGRAMME:
+				include_once self::PATH.'class.ilLPStatusStudyProgramme.php';
+				return self::$class_by_obj_id[$a_obj_id] = "ilLPStatusStudyProgramme";
+
 				// fallthrough
 
 			default:
