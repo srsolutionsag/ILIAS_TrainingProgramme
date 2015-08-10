@@ -108,6 +108,10 @@ class ilLPStatusFactory
 				include_once 'Services/Tracking/classes/class.ilLPStatus.php';
 				return self::$class_by_obj_id[$a_obj_id] = 'ilLPStatus';
 
+			case ilLPObjSettings::LP_MODE_STUDY_PROGRAMME:
+				include_once self::PATH.'class.ilLPStatusStudyProgramme.php';
+				return self::$class_by_obj_id[$a_obj_id] = "ilLPStatusStudyProgramme";
+
 			case ilLPObjSettings::LP_MODE_UNDEFINED:
 				include_once 'Services/Object/classes/class.ilObjectLP.php';
 				$olp = ilObjectLP::getInstance($a_obj_id);					
@@ -116,10 +120,6 @@ class ilLPStatusFactory
 				{
 					return self::$class_by_obj_id[$a_obj_id] = self::_getClassById($a_obj_id, $mode);
 				}
-
-			case ilLPObjSettings::LP_MODE_STUDY_PROGRAMME:
-				include_once self::PATH.'class.ilLPStatusStudyProgramme.php';
-				return self::$class_by_obj_id[$a_obj_id] = "ilLPStatusStudyProgramme";
 
 				// fallthrough
 
@@ -222,6 +222,10 @@ class ilLPStatusFactory
 			case ilLPObjSettings::LP_MODE_DEACTIVATED:
 				include_once 'Services/Tracking/classes/class.ilLPStatus.php';
 				return new ilLPStatus($a_obj_id);
+				
+			case ilLPObjSettings::LP_MODE_STUDY_PROGRAMME:
+				include_once self::PATH.'class.ilLPStatusStudyProgramme.php';
+				return new ilLPStatusStudyProgramme($a_obj_id);
 				
 			case ilLPObjSettings::LP_MODE_UNDEFINED:
 				include_once 'Services/Object/classes/class.ilObjectLP.php';
