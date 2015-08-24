@@ -942,11 +942,8 @@ class ilObjStudyProgramme extends ilContainer {
 	}
 	
 	protected function addProgressForNewNodes(ilObjStudyProgramme $a_prg) {
-		require_once("Modules/StudyProgramme/classes/model/class.ilStudyProgrammeProgress.php");
-		foreach ($this->getAssignmentsRaw() as $ass) {
-			$progress = ilStudyProgrammeProgress::createFor($a_prg->settings, $ass);
-			$progress->setStatus(ilStudyProgrammeProgress::STATUS_NOT_RELEVANT)
-					 ->update();
+		foreach ($this->getAssignments() as $ass) {
+			$ass->addMissingProgresses();
 		}
 	}
 	
